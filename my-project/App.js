@@ -1,15 +1,17 @@
 import {useState} from "react"
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Alert, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking } from 'react-native';
+import * as rssParser from 'react-native-rss-parser'
 
 export default function App() {
-
-  let Parser = require('rss-parser')
-  let parse = new Parser();
+  const [data, setData] = useState([
+    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', key: 1}
+  ]);
   
   const RSS_URL = 'https://www.raspberrypi.com/news/feed/';
 
   const [search, setSearch] = useState('');
+  const [show, setShow] = useState(false)
 
   return (
     <View style={styles.container}>
@@ -26,22 +28,104 @@ export default function App() {
           onPress={
             () => {
               Alert.alert('SEARCHING FOR ' + search)
+              //console.log(Test());
+              fetch(RSS_URL).then((response) => response.text())
+              .then((responseData) => rssParser.parse(responseData))
+              .then((rss) => {
+                console.log(rss.title);
+
+                let outputData = []
+                let counter = 1;
+                rss.items.forEach(element => {
+                  objTemp = {
+                    title: element.title,
+                    url: element.links[0].url,
+                    description: ParseDescription(element.description),
+                    published: element.published,
+                    key: counter
+                  }
+                  outputData.push(objTemp)
+
+                  counter++;
+                });
+
+                console.log(outputData)
+
+                setData(outputData)
+
+                console.log(data[0].title)
+                console.log(data[0].url)
+                //console.log(data[0].description)
+                console.log(data[0].published)
+                console.log(data[0].key)
+
+                setShow(true);
+              })
             }
           }
         />
       </View>
+
+      <View>
+        <ScrollView>
+          {
+            show ?
+              data.map(
+                (item) => {
+                  return (
+                    <View style={styles.mapView}>
+                      <Text style={styles.titleText}>{item.title}</Text>
+                      <Text>{item.description}</Text>
+                      <Text 
+                        style={styles.link}
+                        onPress={() => {
+                          Linking.openURL(item.url)
+                        }}
+                      >{item.url}</Text>
+                      <Text style={styles.timeText}>{item.published}</Text>
+                    </View>
+                  )
+                }
+              )
+              :
+              <View />
+          }
+        </ScrollView>
+      </View>
+
       <StatusBar style="auto" />
     </View>
   );
 }
 
+function ParseDescription(input){
+  let output = '';
+
+  let charArray = input.split('');
+  let go = false;
+
+  for (let index = 0; index < charArray.length; index++) {
+    if(go && charArray[index] != '<'){
+      output += charArray[index] ;
+    }else if(go && charArray[index]  == '<'){
+      break;
+    }
+
+    if(charArray[index]  == '>')
+      go = true;
+  }
+
+  return output;
+}
+
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 50,
+    paddingTop: 75,
+    paddingBottom: 30,
   },
   search: {
     flexDirection: 'row',
@@ -54,4 +138,23 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     marginRight: 15,
   },
+  mapView:{
+    margin: 5,
+    borderWidth: 5,
+    padding: 5,
+  },
+  titleText:{
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  link:{
+    color: 'dodgerblue',
+    textDecorationLine: 'underline',
+    marginBottom: 10,
+  },
+  timeText:{
+    textAlign: 'right',
+    fontSize: 10,
+  }
 });
