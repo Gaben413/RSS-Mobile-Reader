@@ -11,56 +11,91 @@ export default function App() {
   const RSS_URL = 'https://www.raspberrypi.com/news/feed/';
 
   const [search, setSearch] = useState('');
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+
+  const [buttonText, setButtonText] = useState('Load');
+  const [loadingText, setLoadingText] = useState('');
+
+  const searchArray = (input) => {
+    setData(
+      (thisData) => {
+        return thisData.filter(data => data.description.toLowerCase().includes(input.toLowerCase()))
+      }
+    );
+  }
+
+  const getRSS = async () => {
+    //console.log(Test());
+    setLoadingText('Loading')
+    setButtonText('Reload')
+    setSearch('');
+
+    await fetch(RSS_URL).then((response) => response.text())
+    .then((responseData) => rssParser.parse(responseData))
+    .then((rss) => {
+      console.log(rss.title);
+
+      let outputData = []
+      let counter = 1;
+      rss.items.forEach(element => {
+        objTemp = {
+          title: element.title,
+          url: element.links[0].url,
+          description: ParseDescription(element.description),
+          published: element.published,
+          key: counter
+        }
+        outputData.push(objTemp)
+
+        counter++;
+      });
+
+      //console.log(outputData)
+
+      setData(outputData)
+
+      console.log(data[0].title)
+      console.log(data[0].url)
+      //console.log(data[0].description)
+      console.log(data[0].published)
+      console.log(data[0].key)
+
+      setShow(true);
+    })
+    //setLoadingText('')
+  }
 
   return (
     <View style={styles.container}>
+      <View>
+        <Button
+
+          title={buttonText}
+          onPress={() => { 
+            getRSS()
+          }
+          }
+        />
+      </View>
       <View style={styles.search}>
         <TextInput 
           placeholder="Link"
           style={styles.textinput}
           onChangeText={setSearch}
           keyboardType='url'
+          value={search}
         />
 
         <Button 
           title="SEARCH"
           onPress={
             () => {
-              Alert.alert('SEARCHING FOR ' + search)
-              //console.log(Test());
-              fetch(RSS_URL).then((response) => response.text())
-              .then((responseData) => rssParser.parse(responseData))
-              .then((rss) => {
-                console.log(rss.title);
-
-                let outputData = []
-                let counter = 1;
-                rss.items.forEach(element => {
-                  objTemp = {
-                    title: element.title,
-                    url: element.links[0].url,
-                    description: ParseDescription(element.description),
-                    published: element.published,
-                    key: counter
-                  }
-                  outputData.push(objTemp)
-
-                  counter++;
-                });
-
-                console.log(outputData)
-
-                setData(outputData)
-
-                console.log(data[0].title)
-                console.log(data[0].url)
-                //console.log(data[0].description)
-                console.log(data[0].published)
-                console.log(data[0].key)
-
-                setShow(true);
-              })
+              if(search.trim().length == 0){
+                getRSS();
+                return;
+              }
+              Alert.alert('SEARCHING FOR ' + search.trim());
+              searchArray(search.trim())
             }
           }
         />
@@ -88,7 +123,9 @@ export default function App() {
                 }
               )
               :
-              <View />
+              <View>
+                <Text>{loadingText}</Text>
+              </View>
           }
         </ScrollView>
       </View>
@@ -124,8 +161,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 75,
-    paddingBottom: 30,
+    paddingTop: 100,
+    paddingBottom: 50,
   },
   search: {
     flexDirection: 'row',
@@ -141,6 +178,7 @@ const styles = StyleSheet.create({
   mapView:{
     margin: 5,
     borderWidth: 5,
+    borderRadius: 15,
     padding: 5,
   },
   titleText:{
