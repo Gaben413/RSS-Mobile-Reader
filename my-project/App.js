@@ -108,7 +108,7 @@ export default function App() {
               data.map(
                 (item) => {
                   return (
-                    <View style={styles.mapView}>
+                    <View style={styles.mapView} key={item.key}>
                       <Text style={styles.titleText}>{item.title}</Text>
                       <Text>{item.description}</Text>
                       <Text 
