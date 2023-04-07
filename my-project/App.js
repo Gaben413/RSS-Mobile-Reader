@@ -75,9 +75,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="orange" hidden={true}/>
+      <StatusBar backgroundColor="#CD2355" hidden={true}/>
       <View style={styles.titleBar}>
-        <Icon name='raspberry-pi' size={50} color={'orange'} />
+        <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
 
         <Text style={styles.titleText}>RASPBERRY PI - NEWS</Text>
 
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderRadius: 15,
     padding: 5,
-    borderColor: 'orange',
+    borderColor: '#CD2355',
     backgroundColor: 'white',
   },
   scrollViewGrey:{
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   reloadButton:{
-    backgroundColor: 'orange',
+    backgroundColor: '#CD2355',
     height: 55,
     width:55,
     alignItems: 'center',
