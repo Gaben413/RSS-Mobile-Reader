@@ -41,6 +41,13 @@ Execute o projeto
 yarn start
 ```
 
+**OBS: Caso tenho algum erro, crie um projeto EXPO e copie e cole os conteudos da pasta my-project**
+
+```
+yarn create expo-app my-project
+```
+
+
 ## Como usar:
 
 ### Clique no botão superior a direita para carregar ou recarregar a informação RSS
