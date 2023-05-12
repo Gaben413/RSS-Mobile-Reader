@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking, 
 import * as rssParser from 'react-native-rss-parser';
 import Icon from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import NewsSection from "./src/components/NewsSection";
 
 export default function App() {
   const [data, setData] = useState([
@@ -122,6 +123,8 @@ export default function App() {
               displayData.map(
                 (item) => {
                   return (
+                    <NewsSection data={item} key={item.key} />
+                    /*
                     <View style={styles.mapView} key={item.key}>
                       <Text style={styles.articleText}>{item.key}: {item.title}</Text>
                       <Text>{item.description}</Text>
@@ -133,6 +136,7 @@ export default function App() {
                       >{item.url}</Text>
                       <Text style={styles.timeText}>{item.published}</Text>
                     </View>
+                    */
                   )
                 }
               )
