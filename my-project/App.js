@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler'
+
 import {useState} from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking, TouchableHighlight } from 'react-native';
@@ -5,6 +7,28 @@ import * as rssParser from 'react-native-rss-parser';
 import Icon from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NewsSection from "./src/components/NewsSection";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+const Drawer = createDrawerNavigator();
+
+//PLACEHOLDER SCREENS
+function MainScreen(){
+  return(
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>MAIN SCREEN</Text>
+    </View>
+  )
+}
+
+function SecondScreen(){
+  return(
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>SECOND SCREEN</Text>
+    </View>
+  )
+}
 
 export default function App() {
   const [data, setData] = useState([
@@ -75,6 +99,15 @@ export default function App() {
   }
 
   return (
+
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name='Main' component={MainScreen} />
+        <Drawer.Screen name='Second' component={SecondScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+
+    /*
     <View style={styles.container}>
       <StatusBar backgroundColor="#CD2355" hidden={true}/>
       <View style={styles.titleBar}>
@@ -124,19 +157,6 @@ export default function App() {
                 (item) => {
                   return (
                     <NewsSection data={item} key={item.key} />
-                    /*
-                    <View style={styles.mapView} key={item.key}>
-                      <Text style={styles.articleText}>{item.key}: {item.title}</Text>
-                      <Text>{item.description}</Text>
-                      <Text 
-                        style={styles.link}
-                        onPress={() => {
-                          Linking.openURL(item.url)
-                        }}
-                      >{item.url}</Text>
-                      <Text style={styles.timeText}>{item.published}</Text>
-                    </View>
-                    */
                   )
                 }
               )
@@ -149,6 +169,7 @@ export default function App() {
       </View>
 
     </View>
+    */
   );
 }
 
