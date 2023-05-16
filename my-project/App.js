@@ -5,9 +5,29 @@ import * as rssParser from 'react-native-rss-parser';
 import Icon from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {NewsSlot} from './src/components/NewsSlot.js';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import HomeScreen from "./src/screens/HomeScreen";
+import RaspiberryScreen from "./src/screens/RaspiberryScreen";
+import UbuntuScreen from "./src/screens/UbuntuScreen";
+
+import NewsSlot from './src/components/NewsSlot';
+
+const Stack = createNativeStackNavigator();
+
+function LogoTitle(){
+  return(
+    <View style={styles.titleBar}>
+      <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
+      <Text style={styles.titleText}>RASPBERRY PI - NEWS</Text>
+      <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
+    </View>
+  )
+}
 
 export default function App() {
+  /*
   const [data, setData] = useState([
     {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', key: 1}
   ]);
@@ -74,8 +94,26 @@ export default function App() {
     })
     //setLoadingText('')
   }
+  */
 
   return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen}  />
+        <Stack.Screen
+          name="Raspiberry"
+          component={RaspiberryScreen}
+          options={{
+            //headerTitle: (props) => <LogoTitle{...props} /> 
+            headerShown: false
+          }}
+          initialParams={{content1: 'Hey', content2: 'Hello!'}}
+        />
+        <Stack.Screen name="Ubuntu" component={UbuntuScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+
+    /*
     <View style={styles.container}>
       <StatusBar backgroundColor="#CD2355" hidden={true}/>
       <View style={styles.titleBar}>
@@ -124,20 +162,7 @@ export default function App() {
               displayData.map(
                 (item) => {
                   return (
-                    <NewsSlot />
-                    /*
-                    <View style={styles.mapView} key={item.key}>
-                      <Text style={styles.articleText}>{item.key}: {item.title}</Text>
-                      <Text>{item.description}</Text>
-                      <Text 
-                        style={styles.link}
-                        onPress={() => {
-                          Linking.openURL(item.url)
-                        }}
-                      >{item.url}</Text>
-                      <Text style={styles.timeText}>{item.published}</Text>
-                    </View>
-                    */
+                    <NewsSlot data={item} key={item.key} />
                   )
                 }
               )
@@ -150,6 +175,7 @@ export default function App() {
       </View>
 
     </View>
+    */
   );
 }
 
