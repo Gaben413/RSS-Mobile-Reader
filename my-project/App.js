@@ -99,7 +99,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
+
         <Stack.Screen name="Home" component={HomeScreen}  />
+
         <Stack.Screen
           name="Raspiberry"
           component={RaspiberryScreen}
@@ -109,7 +111,17 @@ export default function App() {
           }}
           initialParams={{content1: 'Hey', content2: 'Hello!'}}
         />
-        <Stack.Screen name="Ubuntu" component={UbuntuScreen} />
+
+        <Stack.Screen
+          name="Ubuntu"
+          component={UbuntuScreen}
+          options={{
+            //headerTitle: (props) => <LogoTitle{...props} /> 
+            headerShown: false
+          }}
+          initialParams={{content1: 'Hey', content2: 'Hello!'}}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
 

@@ -78,76 +78,76 @@ export default function RaspiberryScreen({route, navigation}){
     }
 
     return(
-        
-        <View style={styles.container}>
-            <StatusBar backgroundColor="#CD2355" hidden={true}/>
-            <View style={styles.titleBar}>
-                <View style={styles.reloadView}>
-                    <TouchableHighlight style={styles.reloadButton}>
-                        <View>
-                            <MaterialCommunityIcons name='arrow-left-bold-circle' size={40} color={'white'} onPress={ () => navigation.goBack()} />
-                        </View>
-                    </TouchableHighlight>
-                </View>
+      <View style={styles.container}>
+        <StatusBar backgroundColor="#CD2355" hidden={true}/>
+        <View style={styles.titleBar}>
+          <View style={styles.reloadView}>
+            <TouchableHighlight style={styles.reloadButton}>
+              <View>
+                <MaterialCommunityIcons name='arrow-left-bold-circle' size={40} color={'white'} onPress={ () => navigation.goBack()} />
+              </View>
+            </TouchableHighlight>
+          </View>
 
-                <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
+          <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
 
-                <Text style={styles.titleText}>RASPBERRY PI - NEWS</Text>
+          <Text style={styles.titleText}>RASPBERRY PI - NEWS</Text>
 
-                <View style={styles.reloadView}>
-                    <TouchableHighlight style={styles.reloadButton}>
-                        <View>
-                            <MaterialCommunityIcons name='reload' size={40} color={'white'} onPress={ () => getRSS()} />
-                        </View>
-                    </TouchableHighlight>
-                </View>
+          <View style={styles.reloadView}>
+            <TouchableHighlight style={styles.reloadButton}>
+              <View>
+                <MaterialCommunityIcons name='reload' size={40} color={'white'} onPress={ () => getRSS()} />
+              </View>
+            </TouchableHighlight>
+          </View>
             
-            </View>
+          </View>
+
             <View style={styles.search}>
-                <Text style={styles.searchTitle}>Search: </Text>
-                <TextInput 
-                    placeholder="Search"
-                    style={styles.textinput}
-                    onChangeText={(newText) => {
-                        setSearch(newText)
+              <Text style={styles.searchTitle}>Search: </Text>
+              <TextInput 
+                placeholder="Search"
+                style={styles.textinput}
+                onChangeText={(newText) => {
+                  setSearch(newText)
                 
-                        if(data.length <= 1 && data[0].title == "Title") return;
+                  if(data.length <= 1 && data[0].title == "Title") return;
 
-                        console.log(`NEW TEXT: ${newText} |  ${newText.trim().length}\nSEARCH TEXT: ${search} | ${search.trim().length}`)
-                        if(newText.trim().length == 0){
-                            //getRSS();
-                            setDisplayData(data)
-                            console.log(`Area is empty! ${newText.trim().length}`)
-                            return;
-                        }
+                  console.log(`NEW TEXT: ${newText} |  ${newText.trim().length}\nSEARCH TEXT: ${search} | ${search.trim().length}`)
+                  if(newText.trim().length == 0){
+                    //getRSS();
+                    setDisplayData(data)
+                    console.log(`Area is empty! ${newText.trim().length}`)
+                    return;
+                  }
 
-                    //Alert.alert('SEARCHING FOR ' + search.trim());
-                    searchArray(newText.trim())
-                    }}
-                    value={search}
-                />
+                  //Alert.alert('SEARCHING FOR ' + search.trim());
+                  searchArray(newText.trim())
+                }}
+                value={search}
+              />
             </View>
 
             <View>
-                <ScrollView style={show ? styles.scrollViewGrey : styles.scrollViewWhite}>
-                    {
-                        show ?
-                        displayData.map(
-                            (item) => {
-                                return (
-                                    <NewsSlot data={item} key={item.key} />
-                                )
-                            }
-                        )
-                        :
-                        <View>
-                            <Text>{loadingText}</Text>
-                        </View>
+              <ScrollView style={show ? styles.scrollViewGrey : styles.scrollViewWhite}>
+                {
+                  show ?
+                  displayData.map(
+                    (item) => {
+                      return (
+                        <NewsSlot data={item} key={item.key} />
+                      )
                     }
-                </ScrollView>
+                  )
+                  :
+                  <View>
+                    <Text>{loadingText}</Text>
+                  </View>
+                }
+              </ScrollView>
             </View>
-        </View>
-    )
+      </View>
+  )
 }
 
 function ParseDescription(input){
