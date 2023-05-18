@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import RaspiberryScreen from "./src/screens/RaspiberryScreen";
 import UbuntuScreen from "./src/screens/UbuntuScreen";
+import BlenderScreen from "./src/screens/BlenderScreen";
 
 import NewsSlot from './src/components/NewsSlot';
 
@@ -19,9 +20,7 @@ const Stack = createNativeStackNavigator();
 function LogoTitle(){
   return(
     <View style={styles.titleBar}>
-      <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
-      <Text style={styles.titleText}>RASPBERRY PI - NEWS</Text>
-      <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
+      <Text style={styles.titleText}>RSS FEED</Text>
     </View>
   )
 }
@@ -100,7 +99,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
 
-        <Stack.Screen name="Home" component={HomeScreen}  />
+        <Stack.Screen name="Home" component={HomeScreen} options={{headerTitle: 'RSS FEED'}}  />
 
         <Stack.Screen
           name="Raspiberry"
@@ -115,6 +114,16 @@ export default function App() {
         <Stack.Screen
           name="Ubuntu"
           component={UbuntuScreen}
+          options={{
+            //headerTitle: (props) => <LogoTitle{...props} /> 
+            headerShown: false
+          }}
+          initialParams={{content1: 'Hey', content2: 'Hello!'}}
+        />
+
+        <Stack.Screen
+          name="Blender"
+          component={BlenderScreen}
           options={{
             //headerTitle: (props) => <LogoTitle{...props} /> 
             headerShown: false
@@ -221,12 +230,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   titleBar:{
-    width: '85%',
-    height: 55,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
+    width: '100%',
   },
   search: {
     width: '100%',
@@ -259,6 +263,8 @@ const styles = StyleSheet.create({
   titleText:{
     fontSize: 17,
     fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center'
   },
   searchTitle:{
     textAlignVertical: 'center',

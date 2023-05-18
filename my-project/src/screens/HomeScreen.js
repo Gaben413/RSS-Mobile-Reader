@@ -3,9 +3,9 @@ import {View, Text, Button, StyleSheet} from 'react-native'
 
 export default function HomeScreen({navigation}){
     return(
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text>Home Screen</Text>
-            <Button 
+        <View style={styles.container}>
+
+          <Button 
             title="Raspiberry PI"
             onPress={() => {
               navigation.navigate('Raspiberry',{
@@ -14,12 +14,29 @@ export default function HomeScreen({navigation}){
               });
             }}
           />
+
           <Button 
             title="Linux Ubuntu"
             onPress={() => {
               navigation.navigate('Ubuntu');
             }}
           />
+
+          <Button 
+            title="Blender"
+            onPress={() => {
+              navigation.navigate('Blender');
+            }}
+          />
+
         </View>
       )
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})

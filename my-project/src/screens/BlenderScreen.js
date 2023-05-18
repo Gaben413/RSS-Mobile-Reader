@@ -7,7 +7,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import NewsSlot from '../components/NewsSlot';
 
-export default function RaspiberryScreen({route, navigation}){
+export default function BlenderScreen({route, navigation}){
+
     const {content1, content2} = route.params;
 
     const [data, setData] = useState([
@@ -17,7 +18,7 @@ export default function RaspiberryScreen({route, navigation}){
       {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, key: 1}
     ]);
     
-    const RSS_URL = 'https://www.raspberrypi.com/news/feed/';
+    const RSS_URL = 'https://www.blendernation.com/feed/';
   
     const [search, setSearch] = useState('');
     const [show, setShow] = useState(false);
@@ -54,7 +55,7 @@ export default function RaspiberryScreen({route, navigation}){
             url: element.links[0].url,
             description: ParseDescription(element.description),
             published: element.published,
-            colorIndex: 1,
+            colorIndex: 3,
             key: counter
           }
           outputData.push(objTemp)
@@ -79,7 +80,7 @@ export default function RaspiberryScreen({route, navigation}){
     }
 
     return(
-      <View style={styles.container}>
+        <View style={styles.container}>
         <StatusBar backgroundColor="#CD2355" hidden={true}/>
         <View style={styles.titleBar}>
           <View style={styles.reloadView}>
@@ -90,9 +91,9 @@ export default function RaspiberryScreen({route, navigation}){
             </TouchableHighlight>
           </View>
 
-          <Icon name='raspberry-pi' size={50} color={'#CD2355'} />
+          <MaterialCommunityIcons name='blender-software' size={50} color={'orange'} />
 
-          <Text style={styles.titleText}>RASPBERRY PI - NEWS</Text>
+          <Text style={styles.titleText}>BLENDER - NEWS</Text>
 
           <View style={styles.reloadView}>
             <TouchableHighlight style={styles.reloadButton}>
@@ -148,8 +149,9 @@ export default function RaspiberryScreen({route, navigation}){
               </ScrollView>
             </View>
       </View>
-  )
+      )
 }
+
 
 function ParseDescription(input){
     let output = '';
@@ -241,7 +243,7 @@ const styles = StyleSheet.create({
       height: '100%'
     },
     reloadButton:{
-      backgroundColor: '#CD2355',
+      backgroundColor: 'orange',
       height: 55,
       width:55,
       alignItems: 'center',

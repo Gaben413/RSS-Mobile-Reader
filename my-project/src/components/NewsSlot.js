@@ -2,8 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 export default function NewsSlot({data}){
+
     return(
-        <View style={styles.mapView} key={data.key}>
+        <View style={GetStyle(data.colorIndex)} key={data.key}>
 
             <Text style={styles.articleText}>{data.key}: {data.title}</Text>
 
@@ -21,13 +22,42 @@ export default function NewsSlot({data}){
     )
 }
 
+function GetStyle(input){
+    output = styles.mapViewRaspiberry;
+
+    if(input == 1)
+        output = styles.mapViewRaspiberry
+    else if(input == 2)
+        output = styles.mapViewUbuntu
+    else if(input == 3)
+        output = styles.mapViewBlender
+
+    return output
+}
+
 const styles = StyleSheet.create({
-    mapView:{
+    mapViewRaspiberry:{
         margin: 5,
         borderWidth: 5,
         borderRadius: 15,
         padding: 5,
         borderColor: '#CD2355',
+        backgroundColor: 'white',
+    },
+    mapViewUbuntu:{
+        margin: 5,
+        borderWidth: 5,
+        borderRadius: 15,
+        padding: 5,
+        borderColor: '#E95420',
+        backgroundColor: 'white',
+    },
+    mapViewBlender:{
+        margin: 5,
+        borderWidth: 5,
+        borderRadius: 15,
+        padding: 5,
+        borderColor: 'orange',
         backgroundColor: 'white',
     },
     articleText:{
