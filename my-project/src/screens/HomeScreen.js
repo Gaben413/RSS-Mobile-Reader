@@ -45,30 +45,17 @@ export default function HomeScreen({navigation}){
             </View>
           </TouchableHighlight>
 
-          
-          <Button 
-            title="Raspiberry PI"
+          <TouchableHighlight
+            style={styles.touchableContainerFav}
             onPress={() => {
-              navigation.navigate('Raspiberry',{
-                content1: 'Hey',
-                content2: 'Hello!'
-              });
-            }}
-          />
-
-          <Button 
-            title="Linux Ubuntu"
-            onPress={() => {
-              navigation.navigate('Ubuntu');
-            }}
-          />
-
-          <Button 
-            title="Blender"
-            onPress={() => {
-              navigation.navigate('Blender');
-            }}
-          />
+              //navigation.navigate('Blender',{content1: 'Hey', content2: 'Hello!'})
+            }} 
+          >
+            <View style={styles.viewContainer} >
+              <MaterialCommunityIcons name='star' size={40} color={'white'} />
+              <Text style={styles.textStyle} >FAVORITE NEWS</Text>
+            </View>
+          </TouchableHighlight>
           
         </View>
       )
@@ -85,21 +72,32 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#CD2355',
     borderRadius: 15,
-    alignContent: 'center'
+    alignContent: 'center',
+    marginBottom: 25,
   },
   touchableContainerUbuntu:{
     width: '85%',
     height: 60,
     backgroundColor: '#E95420',
     borderRadius: 15,
-    alignContent: 'center'
+    alignContent: 'center',
+    marginBottom: 25,
   },
   touchableContainerBlender:{
     width: '85%',
     height: 60,
     backgroundColor: 'orange',
     borderRadius: 15,
-    alignContent: 'center'
+    alignContent: 'center',
+    marginBottom: 25,
+  },
+  touchableContainerFav:{
+    width: '85%',
+    height: 60,
+    backgroundColor: 'dodgerblue',
+    borderRadius: 15,
+    alignContent: 'center',
+    marginBottom: 25,
   },
   viewContainer:{
     flexDirection: 'row',
@@ -115,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     height: '100%',
+    width: '70%',
     textAlignVertical: 'center'
   }
 })
