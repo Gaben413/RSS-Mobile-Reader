@@ -12,8 +12,10 @@ import HomeScreen from "./src/screens/HomeScreen";
 import RaspiberryScreen from "./src/screens/RaspiberryScreen";
 import UbuntuScreen from "./src/screens/UbuntuScreen";
 import BlenderScreen from "./src/screens/BlenderScreen";
+import FavouriteScree from "./src/screens/FavouriteScreen";
 
 import NewsSlot from './src/components/NewsSlot';
+import FavouriteScreen from "./src/screens/FavouriteScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -127,6 +129,16 @@ export default function App() {
           options={{
             //headerTitle: (props) => <LogoTitle{...props} /> 
             headerShown: false
+          }}
+          initialParams={{content1: 'Hey', content2: 'Hello!'}}
+        />
+
+        <Stack.Screen
+          name="Favourite"
+          component={FavouriteScreen}
+          options={{
+            headerTitle: 'FAVOURITES' 
+            //headerShown: false
           }}
           initialParams={{content1: 'Hey', content2: 'Hello!'}}
         />

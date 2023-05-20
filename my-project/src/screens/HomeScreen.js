@@ -48,7 +48,7 @@ export default function HomeScreen({navigation}){
           <TouchableHighlight
             style={styles.touchableContainerFav}
             onPress={() => {
-              //navigation.navigate('Blender',{content1: 'Hey', content2: 'Hello!'})
+              navigation.navigate('Favourite',{content1: 'Hey', content2: 'Hello!'})
             }} 
           >
             <View style={styles.viewContainer} >

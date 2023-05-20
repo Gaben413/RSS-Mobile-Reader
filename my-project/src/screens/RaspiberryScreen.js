@@ -202,14 +202,6 @@ const styles = StyleSheet.create({
       paddingLeft: 5,
       marginRight: 15,
     },
-    mapView:{
-      margin: 5,
-      borderWidth: 5,
-      borderRadius: 15,
-      padding: 5,
-      borderColor: '#CD2355',
-      backgroundColor: 'white',
-    },
     scrollViewGrey:{
       backgroundColor: '#dddddd',
     },
@@ -222,20 +214,6 @@ const styles = StyleSheet.create({
     },
     searchTitle:{
       textAlignVertical: 'center',
-    },
-    articleText:{
-      fontSize: 15,
-      fontWeight: 'bold',
-      marginBottom: 10,
-    },
-    link:{
-      color: 'dodgerblue',
-      textDecorationLine: 'underline',
-      marginBottom: 10,
-    },
-    timeText:{
-      textAlign: 'right',
-      fontSize: 10,
     },
     reloadView:{
       height: '100%'
