@@ -56,7 +56,7 @@ export default function HomeScreen({navigation}){
               <Text style={styles.textStyle} >FAVORITE NEWS</Text>
             </View>
           </TouchableHighlight>
-          
+
         </View>
       )
 }

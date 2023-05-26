@@ -2,6 +2,7 @@ import {useState} from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking, TouchableHighlight } from 'react-native';
 import * as rssParser from 'react-native-rss-parser';
+import Axios from "axios";
 import Icon from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -97,6 +98,10 @@ export default function App() {
   }
   */
 
+  const submeterInformacao = (texto) => {
+    Axios.post("http://192.168.0.13:3001/item", {item:texto});
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -137,8 +142,8 @@ export default function App() {
           name="Favourite"
           component={FavouriteScreen}
           options={{
-            headerTitle: 'FAVOURITES' 
-            //headerShown: false
+            //headerTitle: 'FAVOURITES' 
+            headerShown: false
           }}
           initialParams={{content1: 'Hey', content2: 'Hello!'}}
         />

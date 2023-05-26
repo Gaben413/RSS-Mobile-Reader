@@ -30,7 +30,7 @@ export default function BlenderScreen({route, navigation}){
     const searchArray = (input) => {
       setDisplayData(
         () => {
-          return data.filter(data => data.description.toLowerCase().includes(input.toLowerCase()))
+          return data.filter(data => data.title.toLowerCase().includes(input.toLowerCase()))
         }
       );
     }

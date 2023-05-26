@@ -1,12 +1,28 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
+import Axios from 'axios';
 
 export default function NewsSlot({data}){
 
+    //!!!!ADD SYSTEM TO SHOW ADD FAV AND REMOVE FAV!!!
+
     return(
         <View style={GetStyle(data.colorIndex)} key={data.key}>
+            <View style={styles.viewFav}>
+                <Text style={styles.articleText}>{data.key}: {data.title}</Text>
+                <View style={{maxHeight:'100%'}}>
+                    <Button
+                        title='FAV'
+                        onPress={()=>{
+                            array = [data.title, data.description, data.url, data.published, GetSourceType(data.colorIndex)]
+                            console.log('Show data');
+                            console.log('TITLE:' + array[0]+'\nDESC:' + array[1] + '\nLINK:' + array[2] + '\nPUBLISHED:' + array[3] + '\nTYPE:' + array[4])
 
-            <Text style={styles.articleText}>{data.key}: {data.title}</Text>
+                            Axios.post("http://192.168.0.13:3001/item", {item:array});
+                        }}
+                    />
+                </View>
+            </View>
 
             <Text>{data.description}</Text>
 
@@ -35,6 +51,20 @@ function GetStyle(input){
     return output
 }
 
+function GetSourceType(input){
+    output = 'R';
+
+    if(input == 1){
+        output = 'R';
+    }else if(input == 2){
+        output = 'U';
+    }else if(input == 3){
+        output = 'B';
+    }
+
+    return output;
+}
+
 const styles = StyleSheet.create({
     mapViewRaspiberry:{
         margin: 5,
@@ -61,6 +91,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     articleText:{
+        width: '80%',
         fontSize: 15,
         fontWeight: 'bold',
         marginBottom: 10,
@@ -74,4 +105,13 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontSize: 10,
     },
+    viewFav:{
+        maxWidth: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    favButton:{
+        width: 50,
+        height: 5
+    }
 })
