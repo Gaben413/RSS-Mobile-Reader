@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const mysql2 = require("mysql2");
@@ -7,10 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql2.createPool({
-    host:"localhost",
-    user:"root",
-    password:"Orion2014!",
-    database:"rss_reader"
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DB,
+    port: process.env.PORT
 });
 
 app.post("/item", (req, res) => {
@@ -28,6 +30,17 @@ app.get("/itens", (req, res) => {
         else res.send(result);
     });
 });
+
+app.delete("/item/:id", (req,res) => {
+    const { id } = req.params;
+    console.log("Informação: ", id)
+
+    let SQL = "DELETE FROM Favourite WHERE (`favID` = ?)";
+
+    db.query(SQL, id, (err, result) => {
+        console.log(err);
+    })
+})
 
 app.get("/", (req, res) => {
     /*

@@ -12,10 +12,10 @@ export default function UbuntuScreen({route, navigation}){
     const {content1, content2} = route.params;
 
     const [data, setData] = useState([
-      {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, key: 1}
+      {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: true, key: 1}
     ]);
     const [displayData, setDisplayData] = useState([
-      {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, key: 1}
+      {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: true, key: 1}
     ]);
     
     const RSS_URL = 'https://www.omgubuntu.co.uk/feed/';
@@ -55,8 +55,9 @@ export default function UbuntuScreen({route, navigation}){
             url: element.links[0].url,
             description: ParseDescription(element.description),
             published: element.published,
+            show: true,
             colorIndex: 2,
-            key: counter
+            key: lista[i].favID
           }
           outputData.push(objTemp)
   

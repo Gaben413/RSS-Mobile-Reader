@@ -1,26 +1,45 @@
-import React from 'react';
+import {SUBMIT_IP, DELETE_IP} from "@env"
+import React, { useState } from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import Axios from 'axios';
 
 export default function NewsSlot({data}){
 
-    //!!!!ADD SYSTEM TO SHOW ADD FAV AND REMOVE FAV!!!
-
+    //Request a function to automatically reload the page so it can be more dinamic
+    const [show, setShow] = useState(data.show);
+    const [del, setDel] = useState(true);
     return(
         <View style={GetStyle(data.colorIndex)} key={data.key}>
             <View style={styles.viewFav}>
                 <Text style={styles.articleText}>{data.key}: {data.title}</Text>
                 <View style={{maxHeight:'100%'}}>
-                    <Button
-                        title='FAV'
-                        onPress={()=>{
-                            array = [data.title, data.description, data.url, data.published, GetSourceType(data.colorIndex)]
-                            console.log('Show data');
-                            console.log('TITLE:' + array[0]+'\nDESC:' + array[1] + '\nLINK:' + array[2] + '\nPUBLISHED:' + array[3] + '\nTYPE:' + array[4])
+                    {
+                        show ?
+                        <Button
+                            title='FAV'
+                            onPress={()=>{
+                                array = [data.title, data.description, data.url, data.published, GetSourceType(data.colorIndex)]
+                                console.log('Show data');
+                                console.log('TITLE:' + array[0]+'\nDESC:' + array[1] + '\nLINK:' + array[2] + '\nPUBLISHED:' + array[3] + '\nTYPE:' + array[4])
 
-                            Axios.post("http://192.168.0.13:3001/item", {item:array});
-                        }}
-                    />
+                                Axios.post(SUBMIT_IP, {item:array});
+                            }}
+                        />
+                        :
+                        <Button
+                            title='DEL'
+                            onPress={()=>{
+                                if(del){
+                                    console.log(`DELETE KEY ${data.key}`);
+                                    console.log(`${DELETE_IP}/${data.key}`);
+                                    Axios.delete(`${DELETE_IP}/${data.key}`)
+                                    setDel(false);
+                                }
+                            }}
+                            disabled={!del}
+                        />
+                    }
+                    
                 </View>
             </View>
 

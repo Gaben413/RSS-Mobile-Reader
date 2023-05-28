@@ -1,3 +1,4 @@
+import {FETCH_IP} from "@env"
 import {useEffect, useState} from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking, TouchableHighlight } from 'react-native';
@@ -11,17 +12,23 @@ import NewsSlot from '../components/NewsSlot';
 
 export default function FavouriteScreen({route, navigation}){
   const [data, setData] = useState([
-    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, key: 1}
+    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: false, key: 1}
   ]);
   const [displayData, setDisplayData] = useState([
-    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, key: 1}
+    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: false, key: 1}
   ]);
+
   const [lista, setLista] = useState();
 
-  function updateData(){
+  async function updateData(){
     //ADD ASYNC SYSTEM HERE SO IT WILL WAIT FOR THE SYSTEM TO FETCH THE DATA FROM THE SERVER
+
+    if(lista.length == 0) return;
+
     setShow(false);
-  
+
+    console.log(`FETCH ${lista.length}`)
+
     setLoadingText('Loading')
     setButtonText('Reload')
     setSearch('');
@@ -33,16 +40,26 @@ export default function FavouriteScreen({route, navigation}){
         url: lista[i].link,
         description: lista[i].descr,
         published: '',
+        show: false,
         colorIndex: GetColorIndex(lista[i].sourceType),
-        key: i
+        key: lista[i].favID
       }
 
       obj.push(x);
     }
 
     setData(obj)
-    setDisplayData(data);
+    setDisplayData(obj);
+
+    console.log(`OBJ: ${obj.length}`)
+    console.log(`DATA: ${data.length}`)
+    console.log(`DISPLAY DATA: ${displayData.length}`)
+
     setShow(true);
+
+    console.log(`OBJ: ${obj.length}`)
+    console.log(`DATA: ${data.length}`)
+    console.log(`DISPLAY DATA: ${displayData.length}`)
 
   }
 
@@ -54,8 +71,9 @@ export default function FavouriteScreen({route, navigation}){
     );
   }
 
+  
   useEffect(() => {
-    Axios.get("http://192.168.0.13:3001/itens").then(
+    Axios.get(FETCH_IP).then(
       (response) => {
         setLista(response.data)
       }

@@ -1,3 +1,4 @@
+import {SUBMIT_IP} from "@env"
 import {useState} from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking, TouchableHighlight } from 'react-native';
@@ -99,7 +100,7 @@ export default function App() {
   */
 
   const submeterInformacao = (texto) => {
-    Axios.post("http://192.168.0.13:3001/item", {item:texto});
+    Axios.post(SUBMIT_IP, {item:texto});
   }
 
   return (
