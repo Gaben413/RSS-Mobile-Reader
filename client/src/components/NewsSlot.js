@@ -1,6 +1,6 @@
 import {SUBMIT_IP, DELETE_IP} from "@env"
 import React, { useState } from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Button, Alert} from 'react-native';
 import Axios from 'axios';
 
 export default function NewsSlot({data}){
@@ -8,6 +8,17 @@ export default function NewsSlot({data}){
     //Request a function to automatically reload the page so it can be more dinamic
     const [show, setShow] = useState(data.show);
     const [del, setDel] = useState(true);
+
+    const quickAlert = (input) => Alert.alert('REMOVED', `\"${input}\" removed from favourites`,
+    [
+      {
+        text: 'OK',
+        onPress: () => {
+          console.log(`${input}`);
+        }
+      }
+    ]);
+
     return(
         <View style={GetStyle(data.colorIndex)} key={data.key}>
             <View style={styles.viewFav}>
@@ -30,6 +41,8 @@ export default function NewsSlot({data}){
                             title='DEL'
                             onPress={()=>{
                                 if(del){
+                                    quickAlert(data.title)
+
                                     console.log(`DELETE KEY ${data.key}`);
                                     console.log(`${DELETE_IP}/${data.key}`);
                                     Axios.delete(`${DELETE_IP}/${data.otherKey}`)

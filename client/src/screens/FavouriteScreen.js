@@ -1,7 +1,7 @@
 import {FETCH_IP} from "@env"
 import {useEffect, useState} from "react"
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Alert, TextInput, Button, ScrollView, Linking, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, Linking, TouchableHighlight } from 'react-native';
 import * as rssParser from 'react-native-rss-parser';
 import Axios from "axios";
 
