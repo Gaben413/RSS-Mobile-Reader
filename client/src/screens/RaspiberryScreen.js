@@ -49,6 +49,7 @@ export default function RaspiberryScreen({route, navigation}){
         let outputData = []
         let counter = 1;
         rss.items.forEach(element => {
+          console.log(`ID: ${element}`)
           objTemp = {
             title: element.title,
             url: element.links[0].url,
@@ -56,7 +57,7 @@ export default function RaspiberryScreen({route, navigation}){
             published: element.published,
             show: true,
             colorIndex: 1,
-            key: lista[i].favID
+            key: counter
           }
           outputData.push(objTemp)
   

@@ -58,7 +58,7 @@ export default function BlenderScreen({route, navigation}){
             published: element.published,
             show: true,
             colorIndex: 3,
-            key: lista[i].favID
+            key: counter
           }
           outputData.push(objTemp)
   

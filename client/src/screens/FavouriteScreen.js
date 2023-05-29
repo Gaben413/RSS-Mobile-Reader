@@ -10,26 +10,37 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import NewsSlot from '../components/NewsSlot';
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 export default function FavouriteScreen({route, navigation}){
   const [data, setData] = useState([
-    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: false, key: 1}
+    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: false, key: 1, otherKey: 1}
   ]);
   const [displayData, setDisplayData] = useState([
-    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: false, key: 1}
+    {title: 'Title', url: 'URL', description: 'DESCRIPTIOMN', published: 'PUBLISHED', colorIndex: 1, show: false, key: 1, otherKey: 1}
   ]);
+  const [loadingText, setLoadingText] = useState('');
 
   const [lista, setLista] = useState();
 
   async function updateData(){
     //ADD ASYNC SYSTEM HERE SO IT WILL WAIT FOR THE SYSTEM TO FETCH THE DATA FROM THE SERVER
 
-    if(lista.length == 0) return;
+    if(lista.length == 0) {
+      setShow(false);
+      setLoadingText('Favourites Empty')
+      return;
+    }
+
+    console.log('Updating')
 
     setShow(false);
+    setLoadingText('Loading')
+
+    await delay(3000);
 
     console.log(`FETCH ${lista.length}`)
 
-    setLoadingText('Loading')
     setButtonText('Reload')
     setSearch('');
 
@@ -42,7 +53,8 @@ export default function FavouriteScreen({route, navigation}){
         published: '',
         show: false,
         colorIndex: GetColorIndex(lista[i].sourceType),
-        key: lista[i].favID
+        key: (i+1),
+        otherKey: lista[i].favID
       }
 
       obj.push(x);
@@ -56,10 +68,6 @@ export default function FavouriteScreen({route, navigation}){
     console.log(`DISPLAY DATA: ${displayData.length}`)
 
     setShow(true);
-
-    console.log(`OBJ: ${obj.length}`)
-    console.log(`DATA: ${data.length}`)
-    console.log(`DISPLAY DATA: ${displayData.length}`)
 
   }
 
@@ -84,7 +92,6 @@ export default function FavouriteScreen({route, navigation}){
   const [show, setShow] = useState(false);
 
   const [buttonText, setButtonText] = useState('Load');
-  const [loadingText, setLoadingText] = useState('');
 
   return(
     <View style={styles.container}>
@@ -154,7 +161,7 @@ export default function FavouriteScreen({route, navigation}){
                   )
                   :
                   <View>
-                    <Text>{loadingText}</Text>
+                    <Text style={{textAlign: 'center'}} >{loadingText}</Text>
                   </View>
                 }
               </ScrollView>

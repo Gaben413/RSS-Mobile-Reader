@@ -57,7 +57,7 @@ export default function UbuntuScreen({route, navigation}){
             published: element.published,
             show: true,
             colorIndex: 2,
-            key: lista[i].favID
+            key: counter
           }
           outputData.push(objTemp)
   

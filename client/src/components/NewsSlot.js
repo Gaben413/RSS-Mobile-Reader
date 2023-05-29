@@ -32,7 +32,7 @@ export default function NewsSlot({data}){
                                 if(del){
                                     console.log(`DELETE KEY ${data.key}`);
                                     console.log(`${DELETE_IP}/${data.key}`);
-                                    Axios.delete(`${DELETE_IP}/${data.key}`)
+                                    Axios.delete(`${DELETE_IP}/${data.otherKey}`)
                                     setDel(false);
                                 }
                             }}
